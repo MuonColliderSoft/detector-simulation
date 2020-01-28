@@ -34,11 +34,11 @@ int id_to_pdg(int particle_id) {
         case 10: return 11; break;
         case 11: return -11; break;
         case 12: return -2212; break;
-        // case 13: return ; break;
-        // case 14: return ; break;
-        // case 15: return ; break;
-        // case 16: return ; break;
-        // case 17: return ; break;
+        case 13: return 111; break;
+        case 14: return 1000010020; break;
+        case 15: return 1000010030; break;
+        case 16: return 1000020030; break;
+        case 17: return 1000020040; break;
         case 18: return 14; break;
         case 19: return -14; break;
         case 20: return 12; break;
