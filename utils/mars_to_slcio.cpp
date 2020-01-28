@@ -80,7 +80,7 @@ MCParticleImpl* new_particle(G4ParticleTable *pTable,
     MCParticleImpl* p = new MCParticleImpl();
     p->setPDG(pdg);
     p->setGeneratorStatus(1);
-    p->setTime(TOFF);
+    p->setTime(TOFF*1e9);  // s -> ns
     const double position[3] = {X*10.0, Y*10.0, Z*10.0};  // cm -> mm
     p->setVertex(position);
     const float momentum[3] = {PX, PY, PZ};
