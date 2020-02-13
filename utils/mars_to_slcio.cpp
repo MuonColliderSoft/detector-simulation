@@ -112,7 +112,7 @@ LCEventImpl*  new_event(int eventId) {
 int main(int argc, char *argv[]) {
 
     if (argc < 3) {
-        printf("USAGE: %s <MARS input file> <SLCIO output file> [N lines/event] [N lines max]\n", argv[0]);
+        printf("USAGE: %s <MARS input file> <SLCIO output file> [N lines/event] [N lines max] [TOFF max [ns]] [Neutron min Ekin [GeV]]\n", argv[0]);
         return 1;
     }
 
@@ -120,6 +120,8 @@ int main(int argc, char *argv[]) {
     char *file_out = argv[2];
     const int nLinesPerEvent = argc > 3 ? atoi(argv[3]) : 1000;
     int nLines_max = argc > 4 ? atoi(argv[4]) : -1;
+    float toff_max = argc > 5 ? atof(argv[5]) : 1e9;
+    float n_ekin_min = argc > 6 ? atof(argv[6]) : 0.0;
 
     if (nLines_max == -1) nLines_max = 1e9;
 
@@ -153,6 +155,10 @@ int main(int argc, char *argv[]) {
     while(sIn.good()) {
         sIn >> NI >> JJ >> X >> Y >> Z >> PX >> PY >> PZ >> TOFF >> W >> ZDEC >> XORIG >> YORIG >> ZORIG >> WORIG >> EORIG >> IORIG >> KORIG;
         if (!sIn.good()) break;
+        // Skipping particle if its time is outside the time region of interest
+        if (TOFF*1e9 > toff_max) continue;
+        // Skipping the particle if it is a neutron with too low kinetic energy (its hits will have too large time offset)
+        if (JJ == 2 && sqrt(PX*PX + PY*PY + PZ*PZ) < n_ekin_min) continue;
         // Adding particle to the event
         MCParticleImpl* p = new_particle(g4Table, NI, JJ, TOFF, X,Y,Z, PX,PY,PZ);
         if (!p) continue;
