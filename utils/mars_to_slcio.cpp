@@ -149,7 +149,7 @@ int main(int argc, char *argv[]) {
     G4ParticleTable *g4Table = G4ParticleTable::GetParticleTable();
 
     // Creating the random number generator for adding weighted particle copies
-    TRandom3* RNDM = new TRandom3();
+    TRandom3* RNDM = new TRandom3(0);
 
     sIn.open(file_in);
     while(sIn.good()) {
@@ -202,11 +202,12 @@ int main(int argc, char *argv[]) {
     if (nLinesEvent > 0) {
         event->addCollection(vParticles, "MCParticle");
         lcWriter->writeEvent(event);
+	iEvent++;
     }
 
     lcWriter->close();
 
-    printf("Finished writing %d events to file:\n  %s\n", iEvent+1, file_out);
+    printf("Finished writing %d events to file:\n  %s\n", iEvent, file_out);
 
     return 0;
 }
