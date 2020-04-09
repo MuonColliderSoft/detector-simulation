@@ -112,21 +112,28 @@ LCEventImpl*  new_event(int eventId) {
 int main(int argc, char *argv[]) {
 
     if (argc < 3) {
-        printf("USAGE: %s <MARS input file> <SLCIO output file> [N lines/event] [N lines max] [TOFF max [ns]] [Neutron min Ekin [GeV]]\n", argv[0]);
+        printf("USAGE: %s <MARS input file> <SLCIO output file> [N lines/event (1000)] [N lines max (-1)] [TOFF max [ns] (1e9)] [Neutron min Ekin [GeV] (0)] [N decays (5e5)] [W nominator (427780)]\n", argv[0]);
         return 1;
     }
 
+    // Parsing the input arguments
     char *file_in = argv[1];
     char *file_out = argv[2];
     const int nLinesPerEvent = argc > 3 ? atoi(argv[3]) : 1000;
     int nLines_max = argc > 4 ? atoi(argv[4]) : -1;
-    float toff_max = argc > 5 ? atof(argv[5]) : 1e9;
-    float n_ekin_min = argc > 6 ? atof(argv[6]) : 0.0;
-
     if (nLines_max == -1) nLines_max = 1e9;
 
-    printf("Converting MARS data from file\n  %s\nto SLCIO file\n  %s\n", file_in, file_out);
+    float toff_max = argc > 5 ? atof(argv[5]) : 1e9;
+    float n_ekin_min = argc > 6 ? atof(argv[6]) : 0.0;
+    
+    float n_decay = argc > 7 ? atof(argv[7]) : 5e5;
+    float W_nom = argc > 8 ? atof(argv[8]) : 427780;
+
+    printf("Converting MARS data from file\n  %s\nto SLCIO file\n  %s\nwith N decays: %.0f\n", file_in, file_out, n_decay);
     printf("Reading max %d lines split by %d lines/event\n", nLines_max, nLinesPerEvent);
+    
+    // Calculating the correction to particle weights (from the original MARS2ROOT conversion script)
+    float W_corr = W_nom/n_decay;
 
     // Initializing the LCIO writer
     LCWriter* lcWriter = LCFactory::getInstance()->createLCWriter();
@@ -159,27 +166,31 @@ int main(int argc, char *argv[]) {
         if (TOFF*1e9 > toff_max) continue;
         // Skipping the particle if it is a neutron with too low kinetic energy (its hits will have too large time offset)
         if (JJ == 2 && sqrt(PX*PX + PY*PY + PZ*PZ) < n_ekin_min) continue;
-        // Adding particle to the event
-        MCParticleImpl* p = new_particle(g4Table, NI, JJ, TOFF, X,Y,Z, PX,PY,PZ);
-        if (!p) continue;
-        vParticles->push_back(p);
-        // Creating W-1 copies of the particle randomly distributed in Phi
-        if (W > 1.5) {
-            const int nW = round(W) - 1;
-            // Generating a random Phi rotation for each copy of the particle
-            float rndm[nW];
-            RNDM->RndmArray(nW, rndm);
-            for (int iW=0; iW < nW; iW++) {
-                TVector3 pos(X, Y, Z);
-                TVector3 mom(PX, PY, PZ);
-                float dPhi = rndm[iW] * TMath::TwoPi();
-                pos.RotateZ(dPhi);
-                mom.RotateZ(dPhi);
-                MCParticleImpl* p = new_particle(g4Table, NI, JJ, TOFF, 
-                                                 pos.X(), pos.Y(), pos.Z(), 
-                                                 mom.X(), mom.Y(), mom.Z());
-                vParticles->push_back(p);
-            }
+        // Correcting the particle's weight
+        W *= W_corr;
+        // Testing if the particle can be created
+        MCParticleImpl* p_ref = new_particle(g4Table, NI, JJ, TOFF, X,Y,Z, PX,PY,PZ);
+        if (!p_ref) continue;
+
+        ////////////////// Creating W copies of the particle randomly distributed in Phi
+        // Converting the float weight to an integer with randomized +1 accounting for the fractional weight
+        int nW = floor(W);
+        float modint;
+        if (RNDM->Rndm() < modf(W, &modint)) nW += 1;
+
+        // Generating a random Phi rotation for each copy of the particle
+        float rndm[nW];
+        RNDM->RndmArray(nW, rndm);
+        for (int iW=0; iW < nW; iW++) {
+            TVector3 pos(X, Y, Z);
+            TVector3 mom(PX, PY, PZ);
+            float dPhi = rndm[iW] * TMath::TwoPi();
+            pos.RotateZ(dPhi);
+            mom.RotateZ(dPhi);
+            MCParticleImpl* p = new_particle(g4Table, NI, JJ, TOFF, 
+                                             pos.X(), pos.Y(), pos.Z(), 
+                                             mom.X(), mom.Y(), mom.Z());
+            vParticles->push_back(p);
         }
         // Updating the loop parameters
         nLines++;
