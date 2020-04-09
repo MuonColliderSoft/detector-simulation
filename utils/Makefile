@@ -1,13 +1,13 @@
 CC = g++
 LIBS = -llcio -lG4global -lG4physicslists -lG4run -lG4particles -lCLHEP -lCore -lMathCore -lPhysics
-IDIR := -I${ILCSOFT}/lcio/HEAD/include \
--I${ILCSOFT}/geant4/10.03.p02/include \
--I${ILCSOFT}/CLHEP/2.3.4.3/include \
--I${ROOTSYS}/include
-LDIR := -L${ILCSOFT}/lcio/HEAD/lib \
--L${ILCSOFT}/geant4/10.03.p02/lib64 \
--L${ILCSOFT}/CLHEP/2.3.4.3/lib \
--L${ROOTSYS}/lib
+IDIR := -I${LCIO}/include \
+-I${CLHEP_INCLUDE_DIR} \
+-I${G4INSTALL}/include \
+-I$(shell root-config --incdir)
+LDIR := -L${LCIO}/lib \
+-L${CLHEP_DIR}/lib \
+-L${G4INSTALL}/lib64 \
+-L$(shell root-config --libdir)
 
 
 all: mars_to_slcio
