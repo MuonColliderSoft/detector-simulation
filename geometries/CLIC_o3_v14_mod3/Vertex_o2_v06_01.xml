@@ -51,12 +51,12 @@
         <constant name="VertexEndcap_zmin"   value="70*mm"/>
         <constant name="VertexEndcap_zmax"   value="310*mm"/>
         <constant name="VertexEndcap_z1"     value="80*mm"/>
-        <constant name="VertexEndcap_z2"     value="130*mm"/>
+        <constant name="VertexEndcap_z2"     value="120*mm"/>
         <constant name="VertexEndcap_z3"     value="200*mm"/>
         <constant name="VertexEndcap_z4"     value="300*mm"/>
         <constant name="VertexEndcapModules" value="16"/>
         <constant name="VertexEndcap_rmin1"  value="22*mm + VertexEndcap_offset"/>
-        <constant name="VertexEndcap_rmin2"  value="23*mm + VertexEndcap_offset"/>
+        <constant name="VertexEndcap_rmin2"  value="28*mm + VertexEndcap_offset"/>
         <constant name="VertexEndcap_rmin3"  value="35*mm + VertexEndcap_offset"/>
         <constant name="VertexEndcap_rmin4"  value="53*mm + VertexEndcap_offset"/>
         <constant name="VertexEndcapOverlap" value="1*mm"/>
