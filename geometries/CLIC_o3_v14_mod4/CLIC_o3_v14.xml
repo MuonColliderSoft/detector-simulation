@@ -1,6 +1,6 @@
 <lccdd>
-    <info name="CLIC_o3_v14_mod3"
-          title="CLIC detector model option 3 version 14 mod 1 for the Muon Collider"
+    <info name="CLIC_o3_v14_mod4"
+          title="CLIC detector model option 3 version 14 mod 4 for the Muon Collider"
           author="Nazar Bartosik"
           url="https://twiki.cern.ch/twiki/bin/view/CLIC/NewCLIC"
           status="development"
