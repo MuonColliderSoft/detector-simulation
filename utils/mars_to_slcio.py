@@ -102,17 +102,17 @@ with open(args.file_in) as file_in:
             elif not args.invert_pdgs and pdg not in args.pdgs:
                 continue
 
-        # Skipping if it's a neutron with too low kinetic energy
-        if args.ne_min is not None and pdg == 2112 and sqrt(px*px + py*py + pz*pz) < args.ne_min:
-            continue
-
         # Converting the rest of string values to floats
         x,y,z,px,py,pz,toff,w = map(float, ss[2:10])
+
+        # Skipping if it's a neutron with too low kinetic energy
+        if args.ne_min is not None and abs(pdg) == 2112 and sqrt(px*px + py*py + pz*pz) < args.ne_min:
+            continue
 
         # Converting time: s -> ns
         toff *= 1e9
 
-        # Skipping if its time is greater than allowed
+        # Skipping if particle's time is greater than allowed
         if args.t_max is not None and toff > args.t_max:
             continue
 
