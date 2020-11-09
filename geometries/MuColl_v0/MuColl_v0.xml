@@ -1,11 +1,10 @@
 <lccdd>
-    <info name="CLIC_o3_v14_mod6"
-          title="CLIC detector model option 3 version 14 mod 6 for the Muon Collider: frozen for SnowMass studies"
+    <info name="MuColl_v0"
+          title="Muon Collider geometry: version frozen for SnowMass studies"
           author="Nazar Bartosik"
-          url="https://twiki.cern.ch/twiki/bin/view/CLIC/NewCLIC"
           status="development"
           version="$Id$">
-        <comment>The compact format for the CLIC Detector design</comment>
+        <comment>Compact format for Muon Collider detector geometry based on CLIC design</comment>
     </info>
 
     <includes>
