@@ -2,6 +2,7 @@
     <info name="MuColl_v0"
           title="Muon Collider geometry: version frozen for SnowMass studies"
           author="Nazar Bartosik"
+          url="https://confluence.infn.it/display/muoncollider/Muon+Collider+Home"
           status="development"
           version="$Id$">
         <comment>Compact format for Muon Collider detector geometry based on CLIC design</comment>
