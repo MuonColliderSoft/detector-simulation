@@ -1,2 +1,2 @@
-Based on `CLIC_o3_v14_mod4` with the following modifications:
-   * Reduced strength of the magnetic field: 4.0T -> 3.57T for consistency with MAP assumption used for BIB generation
+Based on `MuColl_v0` with a fix of the +/- side asymmetry in the Tracker Endcap support structures
+   * Using `TrackerEndcapSupport_o1_v02` instead of `TrackerEndcapSupport_o1_v01` type
