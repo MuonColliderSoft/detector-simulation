@@ -95,6 +95,7 @@ Polyhedron: 12 sides
 
 
 ### Solenoid
+Magnetic field: 3.57 T (inside);  -1.34 T (outside);
 
 |ID     | Rmin  [mm]| Rmax [mm] | Zmax [mm] | Thickness [mm] |
 |-------|-----------|-----------|-----------|----------------|
