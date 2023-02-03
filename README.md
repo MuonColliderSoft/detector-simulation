@@ -1,3 +1,4 @@
-# Detector simulation tools specific to the Muon Collider case
+# Detector-simulation tools for Muon Collider
 
-Everything that is external to the CLIC framework goes here.
+`geometries/` - list of detector geometries in DD4hep format  
+`utils/` - utility scripts relevant for detector simulation
