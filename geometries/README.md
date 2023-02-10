@@ -10,4 +10,6 @@
 | `CLIC_o3_v14_mod4`    | Vertex Barrel segmented in 5 modules (L=26mm) along Z |
 | `CLIC_o3_v14_mod5`    | Better Theta coverage in Vertex Endcap. MAP magnetic field |
 | `MuColl_v0`           | Copy of `CLIC_o3_v14_mod4` with the MAP magnetic field |
-| `MuColl_v1`           | Copy of `MuColl_v0` with fixed asymmetry in thickness of Tracker Endcap Support stractures
+| `MuColl_v1`           | Copy of `MuColl_v0` with fixed asymmetry in thickness of Tracker Endcap Support stractures |
+| `MuColl_v1.0.1`       | Cleaned-up version of `MuColl_v1` with resolved overlaps and better code layout |
+| `MuColl_v1.1.1`       | Copy of `MuColl_v1.0.1` with 500um of Si added to passive material thickness in VTX detector |
