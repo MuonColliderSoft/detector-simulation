@@ -39,7 +39,7 @@ from pyLCIO import UTIL, EVENT, IMPL, IO, IOIMPL
 import random
 import math
 
-from bib_pdgs import MARS_PIDS, PDG_PROPS
+from bib_pdgs import MARS_PIDS, FLUKA_PIDS, PDG_PROPS
 
 def line_to_numbers(iL, line, line_format):
     """Converts the text line to a list of numbers according to the input format"""
