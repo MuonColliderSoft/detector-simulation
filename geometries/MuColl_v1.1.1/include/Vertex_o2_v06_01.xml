@@ -12,7 +12,7 @@
 
 		<constant name="VertexBarrel_Sensitive_Thickness" value="50e-03*mm"/>
 		<!-- Thickness of Si corresponding to all the passive material in 1 layer -->
-		<constant name="VertexBarrel_Support_Thickness"   value="140e-03*mm"/>
+		<constant name="VertexBarrel_Support_Thickness"   value="640e-03*mm"/>
 		<constant name="VertexBarrel_DoubleLayer_Gap"     value="2.0*mm"/>
 
 		<constant name="VertexBarrel_Layer1_width"  value="13*mm"/>
@@ -48,7 +48,7 @@
 		<constant name="VertexEndcap_rmin4"  value="50*mm + VertexEndcap_offset"/>
 
 		<constant name="VertexEndcap_Sensitive_Thickness" value="50e-3*mm"/>
-		<constant name="VertexEndcap_Support_Thickness"   value="280e-3*mm"/> <!--  + 50% more material budget as in CLIC VTX -->
+		<constant name="VertexEndcap_Support_Thickness"   value="780e-3*mm"/> <!--  + 50% more material budget as in CLIC VTX -->
 		<constant name="VertexEndcapModuleThickness"      value="VertexEndcap_Sensitive_Thickness + VertexEndcap_Support_Thickness"/>
 		<constant name="VertexEndcap_DoubleLayer_Gap"     value="2*mm"/>
 	</define>
