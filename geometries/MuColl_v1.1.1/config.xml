@@ -127,6 +127,9 @@
 		<constant name="ECal_cell_size"             value="5.1*mm"/>
 		<constant name="HCal_cell_size"             value="3.0*cm"/>
 		<constant name="Yoke_cell_size"             value="3.0*cm"/>
+		
+		<constant name="tracker_region_zmax"        value="OuterTracker_half_length"/>
+		<constant name="tracker_region_rmax"        value="OuterTracker_outer_radius"/>
 
 		<constant name="GlobalTrackerReadoutID"     type="string"
 			value="system:5,side:-2,layer:6,module:11,sensor:8"/>
