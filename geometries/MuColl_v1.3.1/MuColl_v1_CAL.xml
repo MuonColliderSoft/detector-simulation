@@ -1,0 +1,31 @@
+<lccdd>
+
+	<!-- Loading constants and geometry configuration -->
+	<includes>
+		<file ref="include/elements.xml"/>
+		<file ref="include/materials.xml"/>
+		<file ref="config.xml"/>
+	</includes>
+
+	<!-- Including subdetector definitions -->
+	<include ref="include/Beampipe_o1_v01_02.xml"/>
+	<include ref="include/Nozzle_10deg_v0.xml"/>
+
+	<include ref="include/Vertex_o2_v06_01.xml"/>
+
+	<include ref="include/InnerTracker_o2_v06_01.xml"/>
+	<include ref="include/OuterTracker_o2_v06_01.xml"/>
+
+	<include ref="include/ECalBarrel_o2_v01_02.xml"/>
+	<include ref="include/ECalEndcap_o2_v01_02.xml"/>
+
+	<include ref="include/HCalBarrel_o1_v01_01.xml"/>
+	<include ref="include/HCalEndcap_o1_v01_01.xml"/>
+
+	<!-- Including plugins -->
+	<plugins>
+		<include ref="include/plugins.xml"/>
+	</plugins>
+
+</lccdd>
+
