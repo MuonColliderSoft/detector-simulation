@@ -1,5 +1,7 @@
 ### Detector geometries relevant for the Muon Collider detector simulation
 
+Current baseline geometry: **`MuColl_v1.0.1`**
+
 | Geometry name             | Description |
 |---------------------------|-------------|
 | `FCCee_o1_v04`            | FCC geometry that has flat Vertex Endcap disk structure, replicated in `CLIC_o3_v14_mod1` |
