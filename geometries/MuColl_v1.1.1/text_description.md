@@ -2,7 +2,7 @@
 A simplified overview to easily recreate the main elements of the geometry in FLUKA for radiation studies
 
 ### Vertex Barrel layers
-Silicon thickness: 190e-3 mm
+Silicon thickness: 690e-3 mm
 
 |ID | R [mm]    | Zmax [mm] |
 |---|-----------|-----------|
@@ -17,7 +17,7 @@ Silicon thickness: 190e-3 mm
 
 
 ### Vertex Endcap disks
-Silicon thickness: 330e-3 mm
+Silicon thickness: 830e-3 mm
 
 |ID | Z [mm]    | Rmin [mm] | Rmax [mm] |
 |---|-----------|-----------|-----------|

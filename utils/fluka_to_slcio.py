@@ -9,6 +9,7 @@ import numpy as np
 parser = argparse.ArgumentParser(description='Convert FLUKA binary file to SLCIO file with MCParticles')
 parser.add_argument('files_in', metavar='FILE_IN', help='Input binary FLUKA file(s)', nargs='+')
 parser.add_argument('file_out', metavar='FILE_OUT.slcio', help='Output SLCIO file')
+parser.add_argument('-c', '--comment', metavar='TEXT',  help='Comment to be added to the header', type=str)
 parser.add_argument('-b', '--bx_time', metavar='TIME',  help='Time of the bunch crossing [ns]', type=float, default=117.78143152396451)
 parser.add_argument('-n', '--normalization', metavar='N',  help='Normalization of the generated sample', type=float, default=1.0)
 parser.add_argument('-f', '--files_event', metavar='L',  help='Number of files to merge into a single LCIO event (default: 1)', type=int, default=1)
@@ -81,8 +82,10 @@ wrt.open(args.file_out, EVENT.LCIO.WRITE_NEW)
 # Write a RunHeader
 run = IMPL.LCRunHeaderImpl()
 run.setRunNumber(0)
-run.parameters().setValue('InputPath', str(args.files_in))
+run.parameters().setValue('InputFiles', len(args.files_in))
 run.parameters().setValue('Normalization', args.normalization)
+run.parameters().setValue('BXTime', args.bx_time)
+run.parameters().setValue('FilesPerEvent', args.files_event)
 if args.t_max:
 	run.parameters().setValue('Time_max', args.t_max)
 if args.ne_min:
@@ -91,6 +94,8 @@ if args.pdgs:
 	run.parameters().setValue('PdgIds', str(args.pdgs))
 if args.nopdgs:
 	run.parameters().setValue('NoPdgIds', args.nopdgs)
+if args.comment:
+	run.parameters().setValue('Comment', args.comment)
 wrt.writeRunHeader(run)
 
 # Bookkeeping variables
