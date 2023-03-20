@@ -10,7 +10,7 @@ parser = argparse.ArgumentParser(description='Convert FLUKA binary file to SLCIO
 parser.add_argument('files_in', metavar='FILE_IN', help='Input binary FLUKA file(s)', nargs='+')
 parser.add_argument('file_out', metavar='FILE_OUT.slcio', help='Output SLCIO file')
 parser.add_argument('-c', '--comment', metavar='TEXT',  help='Comment to be added to the header', type=str)
-parser.add_argument('-b', '--bx_time', metavar='TIME',  help='Time of the bunch crossing [ns]', type=float, default=117.78143152396451)
+parser.add_argument('-b', '--bx_time', metavar='TIME',  help='Time of the bunch crossing [s]', type=float, default=0.0)
 parser.add_argument('-n', '--normalization', metavar='N',  help='Normalization of the generated sample', type=float, default=1.0)
 parser.add_argument('-f', '--files_event', metavar='L',  help='Number of files to merge into a single LCIO event (default: 1)', type=int, default=1)
 parser.add_argument('-m', '--max_lines', metavar='M',  help='Maximum number of lines to process', type=int, default=None)
@@ -136,7 +136,7 @@ for iF, file_in in enumerate(args.files_in):
 			continue
 
 		# Calculating the absolute time of the particle [ns]
-		t = toff - toff_mo - args.bx_time
+		t = (toff - toff_mo - args.bx_time) * 1e9
 
 		# Skipping if particle's time is greater than allowed
 		if args.t_max is not None and t > args.t_max:
