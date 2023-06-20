@@ -29,6 +29,7 @@ if not args.overwrite and os.path.isfile(args.file_out):
 from math import sqrt
 from pdb import set_trace as br
 from array import array
+
 from edm4hep import edm4hep
 from ROOT import podio
 from podio.root_io import Writer
@@ -79,12 +80,11 @@ print(f'Storing {args.files_event:d} files/event');
 if args.pdgs is not None:
 	print(f'Will only use particles with PDG IDs: {args.pdgs}')
 
-# Initialize the LCIO file writer
-writer = Writer('frame.root') 
+# Initialize the EDM4HEP file writer
+writer = Writer(args.file_out)
 
-frame = podio.Frame()
 # Write a RunHeader
-
+frame = podio.Frame()
 frame.putParameter("InputFiles", len(args.files_in))
 frame.putParameter("Normalization", args.normalization)
 frame.putParameter("BXTime", args.bx_time)
@@ -100,6 +100,8 @@ if args.nopdgs:
 	frame.putParameter("NoPdgIds", args.nopdgs)
 if args.comment:
 	frame.putParameter("Comment", args.comment)
+
+	
 # Bookkeeping variables
 random.seed()
 nEventFiles = 0
@@ -110,7 +112,7 @@ evt = None
 
 # Reading the complete files
 for iF, file_in in enumerate(args.files_in):
-	# Creating the LCIO event and collection
+	# Creating the EDM4HEP event and collection
 	if nEventFiles == 0:
 		col = edm4hep.MCParticleCollection()
 		evt = podio.Frame()
@@ -197,10 +199,10 @@ for iF, file_in in enumerate(args.files_in):
 	if nEventFiles >= args.files_event or iF+1 == len(args.files_in):
 		nEvents +=1
 		nEventFiles = 0
-		# swriter.writeFrame(frame, 'events')
+		writer.writeFrame(frame, 'events')
 		print(f'Wrote event: {nEvents:d} with {col.size()} particles')
 	frame.put(cppyy.gbl.std.move(col), "MCParticles")
 
 print(f'Wrote {nEvents:d} events to file: {args.file_out:s}')
-writer.writeFrame(frame, 'events')
+# writer.writeFrame(frame, 'events')
 writer.finish()
