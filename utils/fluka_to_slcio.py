@@ -29,6 +29,7 @@ if not args.overwrite and os.path.isfile(args.file_out):
 from math import sqrt
 from pdb import set_trace as br
 from array import array
+
 from pyLCIO import UTIL, EVENT, IMPL, IO, IOIMPL
 
 import random

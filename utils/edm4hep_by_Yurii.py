@@ -100,7 +100,6 @@ if args.nopdgs:
 	frame.putParameter("NoPdgIds", args.nopdgs)
 if args.comment:
 	frame.putParameter("Comment", args.comment)
-
 	
 # Bookkeeping variables
 random.seed()
@@ -199,10 +198,10 @@ for iF, file_in in enumerate(args.files_in):
 	if nEventFiles >= args.files_event or iF+1 == len(args.files_in):
 		nEvents +=1
 		nEventFiles = 0
+		frame.put(cppyy.gbl.std.move(col), "MCParticles")
 		writer.writeFrame(frame, 'events')
 		print(f'Wrote event: {nEvents:d} with {col.size()} particles')
-	frame.put(cppyy.gbl.std.move(col), "MCParticles")
-
+	
 print(f'Wrote {nEvents:d} events to file: {args.file_out:s}')
 # writer.writeFrame(frame, 'events')
 writer.finish()
