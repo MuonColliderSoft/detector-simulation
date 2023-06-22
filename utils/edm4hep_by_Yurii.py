@@ -203,5 +203,5 @@ for iF, file_in in enumerate(args.files_in):
 		print(f'Wrote event: {nEvents:d} with {col.size()} particles')
 	
 print(f'Wrote {nEvents:d} events to file: {args.file_out:s}')
-# writer.writeFrame(frame, 'events')
+
 writer.finish()
