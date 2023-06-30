@@ -86,20 +86,20 @@ writer = Writer(args.file_out)
 # Write a RunHeader
 frame = podio.Frame()
 frame.putParameter("InputFiles", len(args.files_in))
-frame.putParameter("Normalization", args.normalization)
-frame.putParameter("BXTime", args.bx_time)
-frame.putParameter("FilesPerEvent", args.files_event)
+frame.putParameter("Normalization", str(args.normalization))
+frame.putParameter("BXTime", str(args.bx_time))
+frame.putParameter("FilesPerEvent", str(args.files_event))
 
 if args.t_max:
-	frame.putParameter("Time_max", args.t_max)
+	frame.putParameter("Time_max", str(args.t_max))
 if args.ne_min:
-	frame.putParameter("NeutronEnergy_min", args.ne_min)
+	frame.putParameter("NeutronEnergy_min", str(args.ne_min))
 if args.pdgs:
 	frame.putParameter("PdgIds", str(args.pdgs))
 if args.nopdgs:
-	frame.putParameter("NoPdgIds", args.nopdgs)
+	frame.putParameter("NoPdgIds", str(args.nopdgs))
 if args.comment:
-	frame.putParameter("Comment", args.comment)
+	frame.putParameter("Comment", str(args.comment))
 
 writer.writeFrame(frame, 'header')
 	
@@ -117,7 +117,7 @@ for iF, file_in in enumerate(args.files_in):
 	if nEventFiles == 0:
 		col = edm4hep.MCParticleCollection()
 		evt = podio.Frame()
-		evt.putParameter("eventNumber", nEvents)
+		evt.putParameter("eventNumber", str(nEvents))
 
 
 	# Looping over particles from the file
