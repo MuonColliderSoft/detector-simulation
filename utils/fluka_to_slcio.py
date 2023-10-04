@@ -13,6 +13,7 @@ parser.add_argument('-c', '--comment', metavar='TEXT',  help='Comment to be adde
 parser.add_argument('-b', '--bx_time', metavar='TIME',  help='Time of the bunch crossing [s]', type=float, default=0.0)
 parser.add_argument('-n', '--normalization', metavar='N',  help='Normalization of the generated sample', type=float, default=1.0)
 parser.add_argument('-f', '--files_event', metavar='L',  help='Number of files to merge into a single LCIO event (default: 1)', type=int, default=1)
+parser.add_argument('-i', '--invert_z', metavar='I',  help='Invert to simulate mu- beam (default: 0)', type=int, default=0)
 parser.add_argument('-m', '--max_lines', metavar='M',  help='Maximum number of lines to process', type=int, default=None)
 parser.add_argument('-o', '--overwrite',  help='Overwrite existing output file', action='store_true', default=False)
 parser.add_argument('--pdgs', metavar='ID',  help='PDG IDs of particles to be included', type=int, default=None, nargs='+')
@@ -170,7 +171,11 @@ for iF, file_in in enumerate(args.files_in):
 		particle.setTime(t)
 		particle.setMass(mass)
 		particle.setCharge(charge)
-		pos = np.array([x, y, z], dtype=np.float64)
+		pos = np.array([x*10, y*10, z*10], dtype=np.float64) # FLUKA positions are in cm, LCIO in mm
+
+		if args.invert_z:
+			pos[2] = -pos[2]
+			mom[2] = -mom[2]
 
 		# Creating the particle copies with random Phi rotation
 		px, py, pz = mom
