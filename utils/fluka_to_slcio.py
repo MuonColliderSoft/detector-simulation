@@ -122,7 +122,7 @@ for iF, file_in in enumerate(args.files_in):
 			break
 
 		# Extracting relevant values from the line
-		fid,e, x,y,z, cx,cy,cz, toff,toff_mo = (data[n][0] for n in [
+		fid,e_kin, x,y,z, cx,cy,cz, toff,toff_mo = (data[n][0] for n in [
 			'fid', 'E',
 			'x','y','z',
 			'cx', 'cy', 'cz',
@@ -143,20 +143,21 @@ for iF, file_in in enumerate(args.files_in):
 		if args.t_max is not None and t > args.t_max:
 			continue
 
-		# Calculating the components of the momentum vector
-		mom = np.array([cx, cy, cz], dtype=np.float32)
-		mom *= e
-
-		# Skipping if it's a neutron with too low kinetic energy
-		if args.ne_min is not None and abs(pdg) == 2112 and np.linalg.norm(mom) < args.ne_min:
-			continue
-
 		# Getting the charge and mass of the particle
 		if pdg not in PDG_PROPS:
 			print('WARNING! No properties defined for PDG ID: {0:d}'.format(pdg))
 			print('         Skpping the particle...')
 			continue
 		charge, mass = PDG_PROPS[pdg]
+
+		# Calculating the components of the momentum vector from the kinetic energy
+		mom_tot = sqrt(e_kin**2 + 2 * e_kin * mass)
+		mom = np.array([cx, cy, cz], dtype=np.float32)
+		mom *= mom_tot
+
+		# Skipping if it's a neutron with too low kinetic energy
+		if args.ne_min is not None and abs(pdg) == 2112 and np.linalg.norm(e_kin) < args.ne_min:
+			continue
 
 		# Calculating how many random copies of the particle to create according to the weight
 		nP_frac, nP = math.modf(args.normalization)
