@@ -156,7 +156,7 @@ for iF, file_in in enumerate(args.files_in):
 		mom *= mom_tot
 
 		# Skipping if it's a neutron with too low kinetic energy
-		if args.ne_min is not None and abs(pdg) == 2112 and np.linalg.norm(e_kin) < args.ne_min:
+		if args.ne_min is not None and abs(pdg) == 2112 and e_kin < args.ne_min:
 			continue
 
 		# Calculating how many random copies of the particle to create according to the weight
